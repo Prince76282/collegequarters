@@ -59,18 +59,17 @@ const ProfilePage = () => {
   const handleSave = async () => {
     if (user) {
       try {
-        // Update profile in Firebase
+       
         await updateProfile(auth.currentUser, {
           displayName: updatedName,
         });
 
-        // Update profile in backend (including phone number)
+        
         await axios.put(`http://localhost:5000/api/users/${user.email}`, {
           name: updatedName,
           phone: updatedPhone,
         });
 
-        // Update local user state
         setUser({ ...user, name: updatedName });
         setIsEditing(false);
         console.log('Profile updated successfully');
