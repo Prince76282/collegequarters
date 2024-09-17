@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';  
 import { Link } from 'react-router-dom';
 import { FaHeart, FaRupeeSign, FaMapMarkerAlt, FaBed, FaBath } from 'react-icons/fa'; 
+import { API_URL } from '../utils/key';
 
 const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -20,7 +21,7 @@ const HomePage = () => {
 
   const fetchHomeListings = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/homeListings');
+      const response = await axios.get(`${API_URL}/homeListings`);
       setHomes(response.data); 
       setFilteredHomes(response.data); // Initial load of all homes
     } catch (error) {
@@ -89,7 +90,7 @@ const HomePage = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/favorites', {
+      const response = await axios.post(`${API_URL}/favorites`, {
         email: user.email,
         homeId: home._id,
       });

@@ -3,6 +3,7 @@ import { auth } from '../firebase.config';
 import { Link, useNavigate } from 'react-router-dom';
 import { onAuthStateChanged, updateProfile } from 'firebase/auth';
 import axios from 'axios';
+import { API_URL } from '../utils/key';
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
@@ -24,7 +25,7 @@ const ProfilePage = () => {
 
         // Fetch user info from backend (including phone number)
         try {
-          const response = await axios.get(`http://localhost:5000/api/users/${loggedUser.email}`);
+          const response = await axios.get(`${API_URL}/users/${loggedUser.email}`);
           const userData = response.data;
           setUpdatedPhone(userData.phone || 'Not available');
           setSavedHomes(userData.savedHomes || []);
@@ -41,7 +42,7 @@ const ProfilePage = () => {
 
   const deleteFavorite = async (homeId) => {
     try {
-      await axios.delete('http://localhost:5000/api/favorites/remove', {
+      await axios.delete(`${API_URL}/favorites/remove`, {
         data: { email: user.email, homeId },
       });
 
@@ -65,7 +66,7 @@ const ProfilePage = () => {
         });
 
         
-        await axios.put(`http://localhost:5000/api/users/${user.email}`, {
+        await axios.put(`${API_URL}/users/${user.email}`, {
           name: updatedName,
           phone: updatedPhone,
         });

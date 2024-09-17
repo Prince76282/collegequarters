@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; 
 import { FaRupeeSign, FaMapMarkerAlt, FaBed, FaBath } from 'react-icons/fa';
+import { API_URL } from '../utils/key';
 
 const LandingPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -21,7 +22,7 @@ const LandingPage = () => {
   useEffect(() => {
     const fetchHomes = async () => {
       try {
-        const response = await axios.get('https://collegequarters-api.vercel.app/homeListings');
+        const response = await axios.get(`${API_URL}/homeListings`);
         setHomes(response.data);
         setFilteredHomes(response.data);
       } catch (error) {

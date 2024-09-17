@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: [
-      "https://collegequarters-api.vercel.app/",
+      "https://server.collegequarters.in",
       "http://localhost:5000",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],

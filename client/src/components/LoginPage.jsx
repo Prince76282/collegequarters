@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { auth, provider, signInWithPopup } from "../firebase.config";
 import { onAuthStateChanged } from "firebase/auth";
 import axios from "axios";
+import { API_URL } from "../utils/key";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const LoginPage = () => {
       };
 
       // Save user information to backend
-      await axios.post('http://localhost:5000/api/users', userInfo);
+      await axios.post(`${API_URL}/users`, userInfo);
 
       localStorage.setItem("user", JSON.stringify(userInfo));
       navigate("/home");
