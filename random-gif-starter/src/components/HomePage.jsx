@@ -80,15 +80,24 @@ const HomePage = () => {
     }));
   };
 
-  const handleSave = (home, e) => {
+  const handleSave = async (home, e) => {
     e.stopPropagation(); 
-    const savedHomes = JSON.parse(localStorage.getItem('savedHomes')) || [];
-    const isAlreadySaved = savedHomes.some((savedHome) => savedHome.id === home.id);
-    if (!isAlreadySaved) {
-      localStorage.setItem('savedHomes', JSON.stringify([...savedHomes, home]));
-    } else {
-      const updatedHomes = savedHomes.filter((savedHome) => savedHome.id !== home.id);
-      localStorage.setItem('savedHomes', JSON.stringify(updatedHomes));
+    const user = JSON.parse(localStorage.getItem('user')); // Assuming the user's info is stored in localStorage
+    if (!user) {
+      alert('Please login to save favorites');
+      return;
+    }
+
+    try {
+      const response = await axios.post('http://localhost:5000/api/favorites', {
+        email: user.email,
+        homeId: home._id,
+      });
+      if (response.status === 200) {
+        console.log('Home saved to favorites');
+      }
+    } catch (error) {
+      console.error('Error saving favorite:', error);
     }
   };
 

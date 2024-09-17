@@ -13,24 +13,24 @@ const ProfilePage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         const loggedUser = {
           name: currentUser.displayName,
           email: currentUser.email,
-          phone: currentUser.phoneNumber || 'Not available',
         };
         setUser(loggedUser);
         setUpdatedName(loggedUser.name);
-        setUpdatedPhone(loggedUser.phone);
 
-        axios.get(`http://localhost:5000/api/users/${loggedUser.email}`)
-          .then(response => {
-            setSavedHomes(response.data.savedHomes || []);
-          })
-          .catch(error => {
-            console.error('Error fetching saved homes:', error.message);
-          });
+        // Fetch user info from backend (including phone number)
+        try {
+          const response = await axios.get(`http://localhost:5000/api/users/${loggedUser.email}`);
+          const userData = response.data;
+          setUpdatedPhone(userData.phone || 'Not available');
+          setSavedHomes(userData.savedHomes || []);
+        } catch (error) {
+          console.error('Error fetching user data:', error.message);
+        }
       } else {
         setUser(null);
       }
@@ -47,7 +47,6 @@ const ProfilePage = () => {
 
       const updatedHomes = savedHomes.filter((home) => home.id !== homeId);
       setSavedHomes(updatedHomes);
-      localStorage.setItem('savedHomes', JSON.stringify(updatedHomes));
     } catch (error) {
       console.error('Error deleting favorite:', error.message);
     }
@@ -60,17 +59,19 @@ const ProfilePage = () => {
   const handleSave = async () => {
     if (user) {
       try {
+        // Update profile in Firebase
         await updateProfile(auth.currentUser, {
           displayName: updatedName,
-          phoneNumber: updatedPhone,
         });
 
+        // Update profile in backend (including phone number)
         await axios.put(`http://localhost:5000/api/users/${user.email}`, {
           name: updatedName,
           phone: updatedPhone,
         });
 
-        setUser({ ...user, name: updatedName, phone: updatedPhone });
+        // Update local user state
+        setUser({ ...user, name: updatedName });
         setIsEditing(false);
         console.log('Profile updated successfully');
       } catch (error) {
@@ -124,7 +125,7 @@ const ProfilePage = () => {
                 className="w-full p-2 border border-gray-300 rounded-md"
               />
             ) : (
-              <p className="text-gray-600">{user.phone}</p>
+              <p className="text-gray-600">{updatedPhone}</p>
             )}
           </div>
           <div>
