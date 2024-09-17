@@ -17,15 +17,18 @@ const LoginPage = () => {
       const userInfo = {
         name: user.displayName,
         email: user.email,
-        phone: user.phoneNumber || 'Not available',
+        phone: user.phoneNumber || "Not available",
         image: user.photoURL,
       };
 
       // Save user information to backend
-      await axios.post(`${API_URL}/users`, userInfo);
-
       localStorage.setItem("user", JSON.stringify(userInfo));
-      navigate("/home");
+      localStorage.setItem("isLoggedin", JSON.stringify(true));
+      const res = await axios.post(`${API_URL}/users`, userInfo);
+
+      if (res) {
+        navigate("/home");
+      }
     } catch (error) {
       console.error("Error during sign-in: ", error.message);
     }
@@ -55,9 +58,7 @@ const LoginPage = () => {
   return (
     <div className="flex justify-center items-center h-screen bg-gray-50">
       <div className="bg-white p-10 rounded-lg shadow-md text-center max-w-sm mx-auto">
-        <h2 className="text-3xl font-bold text-gray-800 mb-6">
-          Welcome Back!
-        </h2>
+        <h2 className="text-3xl font-bold text-gray-800 mb-6">Welcome Back!</h2>
         <p className="text-gray-600 mb-8">
           Sign in to access your account and explore the best homes.
         </p>

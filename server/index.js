@@ -19,7 +19,7 @@ app.use(
       "https://collegequarters.in",
       "https://www.collegequarters.in",
       "https://server.collegequarters.in",
-      "http://localhost:5000",
+      "http://localhost:3000",
     ],
     // methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
@@ -38,6 +38,29 @@ app.get("/test", (req, res) => {
 app.use((err, req, res, next) => {
   console.error("Server error:", err); // Log detailed error
   res.status(500).send("Internal Server Error");
+});
+
+// Get user details by email
+app.get("/api/users/:email", async (req, res) => {
+  const { email } = req.params; // Extract the email from the request parameters
+  try {
+    // Find the user in the database by email
+    const user = await User.findOne({ email });
+
+    if (user) {
+      // If user is found, send a success response with user data
+      res
+        .status(200)
+        .json({ message: "User data retrieved successfully", user });
+    } else {
+      // If user is not found, send a 404 response
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    // Handle any potential errors and send a 500 response
+    console.error("Error retrieving user profile:", error);
+    res.status(500).json({ message: "Error retrieving user profile" });
+  }
 });
 
 app.put("/api/users/:email", async (req, res) => {
