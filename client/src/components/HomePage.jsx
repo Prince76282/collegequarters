@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { FaHeart, FaRupeeSign, FaMapMarkerAlt, FaBed, FaBath } from 'react-icons/fa'; 
 import { API_URL } from '../utils/key';
+import CardSkeleton from './CardSkeleton';
 
 const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -90,7 +91,11 @@ const HomePage = () => {
     }
 
     try {
-      const response = await axios.post(`${API_URL}/favorites`, {
+      const response = await axios.post(`${API_URL}/favorites`
+      
+      
+      
+      , {
         email: user.email,
         homeId: home._id,
       });
@@ -208,7 +213,15 @@ const HomePage = () => {
               </div>
             ))
           ) : (
-            <p className="text-center text-gray-600">No listings available</p>
+            <>
+            <CardSkeleton/>
+            <CardSkeleton/>
+            <CardSkeleton/>
+            <CardSkeleton/>
+            <CardSkeleton/>
+            <CardSkeleton/>
+            {/* <p className="text-center text-gray-600">No listings available</p> */}
+            </>
           )}
         </div>
       </div>
