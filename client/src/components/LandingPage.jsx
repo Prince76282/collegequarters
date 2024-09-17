@@ -21,7 +21,7 @@ const LandingPage = () => {
   useEffect(() => {
     const fetchHomes = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/homeListings');
+        const response = await axios.get('https://collegequarters-api.vercel.app/homeListings');
         setHomes(response.data);
         setFilteredHomes(response.data);
       } catch (error) {
