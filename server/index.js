@@ -16,11 +16,12 @@ app.use(express.json());
 app.use(
   cors({
     origin: [
-      "https://collegequarters.in/",
-      "https://www.collegequarters.in/",
+      "https://collegequarters.in",
+      "https://www.collegequarters.in",
+      "https://server.collegequarters.in",
       "http://localhost:5000",
     ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    // methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
