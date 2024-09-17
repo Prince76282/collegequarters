@@ -15,7 +15,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({
-  origin:["https://collegequarters-api.vercel.app/"],
+  origin:["https://collegequarters-api.vercel.app/", "http://localhost:5000"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true, 
 }));
