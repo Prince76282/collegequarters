@@ -35,9 +35,9 @@ const HomePage = () => {
 
     filtered = filtered.filter(
       (home) =>
-        home.title.toLowerCase().includes(term) ||
-        home.area.toLowerCase().includes(term) ||
-        home.homeType.toLowerCase().includes(term)
+        (home.title && home.title.toLowerCase().includes(term)) ||
+        (home.area && home.area.toLowerCase().includes(term)) ||
+        (home.homeType && home.homeType.toLowerCase().includes(term))
     );
 
     if (filters.forRent !== '') {
@@ -82,8 +82,6 @@ const HomePage = () => {
     }));
   };
 
-
-  
   const handleSave = async (home, e) => {
     e.preventDefault();
   
@@ -101,10 +99,9 @@ const HomePage = () => {
       console.error('Failed to save home:', error.response ? error.response.data : error.message);
     }
   };
-  
 
   return (
-    <div className="min-h-screen bg-[#F9F9F9] ">
+    <div className="min-h-screen bg-[#F9F9F9]">
       <div className="container mx-auto mt-24 p-5">
         <h1 className="text-4xl font-bold text-center mb-8 text-[#333333]">Home Listings</h1>
 
@@ -210,12 +207,12 @@ const HomePage = () => {
             ))
           ) : (
             <>
-            <CardSkeleton/>
-            <CardSkeleton/>
-            <CardSkeleton/>
-            <CardSkeleton/>
-            <CardSkeleton/>
-            <CardSkeleton/>
+              <CardSkeleton/>
+              <CardSkeleton/>
+              <CardSkeleton/>
+              <CardSkeleton/>
+              <CardSkeleton/>
+              <CardSkeleton/>
             </>
           )}
         </div>
