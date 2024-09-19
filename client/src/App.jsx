@@ -11,6 +11,7 @@ import TermsOfService from "./components/TermsOfService"; // Import TermsOfServi
 import PrivacyPolicy from "./components/PrivacyPolicy"; // Import PrivacyPolicy page
 import { useAuth0 } from "@auth0/auth0-react";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ServicePage from "./components/ServicesPage"
 
 function App() {
   const { user } = useAuth0();
@@ -24,19 +25,18 @@ function App() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginPage />} />
-            {/* <Route
-              path="/home"
-              element={
-                <ProtectedRoute>
-                  <HomePage />
-                </ProtectedRoute>
-              }
-            /> */}
+            
 
             <Route
               exact
               path="/home"
               element={<ProtectedRoute Component={HomePage} />}
+            />
+
+            <Route
+              exact
+              path="/service"
+              element={<ProtectedRoute Component={ServicePage} />}
             />
             <Route
               exact

@@ -55,31 +55,39 @@ const HomeDetail = () => {
         <div>
           {(home.imageUrls && home.imageUrls.length > 0) || home.videoUrl ? (
             <div className="mb-8">
-              <h3 className="text-3xl font-bold mb-6 text-gray-800">Gallery</h3>
-              <Slider {...sliderSettings} className="relative">
-                {home.imageUrls.map((url, index) => (
-                  <div key={index} className="relative">
-                    <img
-                      src={url}
-                      alt={`Home Image ${index + 1}`}
-                      className="w-full h-auto object-cover rounded-lg"
-                      style={{ maxHeight: "80vh" }}
-                    />
-                  </div>
-                ))}
-                {home.videoUrl && (
-                  <div className="relative">
-                    <video
-                      className="w-full h-auto object-cover rounded-lg"
-                      controls
-                    >
-                      <source src={home.videoUrl} type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
-                  </div>
-                )}
-              </Slider>
-            </div>
+            <h3 className="text-3xl font-bold mb-6 text-gray-800">Gallery</h3>
+            <Slider {...sliderSettings} className="relative">
+              {home.imageUrls.map((url, index) => (
+                <div
+                  key={index}
+                  className="relative mt-5"
+                >
+                  <img
+                    src={url}
+                    alt={`Home Image ${index + 1}`}
+                    className="w-full h-auto object-cover rounded-lg"
+                    // Setting max-height based on screen sizes
+                    style={{ maxHeight: "80vh" }}
+                  />
+                </div>
+              ))}
+          
+              {home.videoUrl && (
+                <div className="relative mt-5">
+                  <video
+                    className="w-full h-auto object-cover rounded-lg"
+                    controls
+                    style={{ maxHeight: "80vh" }}
+                  >
+                    
+                    <source src={home.videoUrl} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              )}
+            </Slider>
+          </div>
+          
           ) : (
             <p className="text-center mb-8 text-gray-600">No media available</p>
           )}

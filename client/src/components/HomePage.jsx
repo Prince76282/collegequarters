@@ -82,34 +82,30 @@ const HomePage = () => {
     }));
   };
 
-  const handleSave = async (home, e) => {
-    e.stopPropagation(); 
-    const user = JSON.parse(localStorage.getItem('user')); // Assuming the user's info is stored in localStorage
-    if (!user) {
-      alert('Please login to save favorites');
-      return;
-    }
 
+  
+  const handleSave = async (home, e) => {
+    e.preventDefault();
+  
     try {
-      const response = await axios.post(`${API_URL}/favorites`
-      
-      
-      
-      , {
-        email: user.email,
+      const response = await axios.post(`${API_URL}/favorites`, {
+        email: "useremail.@has",
         homeId: home._id,
+        imageUrl: home.imageUrl 
       });
+  
       if (response.status === 200) {
-        console.log('Home saved to favorites');
+        console.log('Home saved successfully:', response.data);
       }
     } catch (error) {
-      console.error('Error saving favorite:', error);
+      console.error('Failed to save home:', error.response ? error.response.data : error.message);
     }
   };
+  
 
   return (
-    <div className="min-h-screen bg-[#F9F9F9]">
-      <div className="container mx-auto p-6">
+    <div className="min-h-screen bg-[#F9F9F9] ">
+      <div className="container mx-auto mt-24 p-5">
         <h1 className="text-4xl font-bold text-center mb-8 text-[#333333]">Home Listings</h1>
 
         {/* Search and Filter Section */}
@@ -180,7 +176,7 @@ const HomePage = () => {
                     <img
                       src={home.imageUrl}
                       alt={home.title}
-                      className="w-full h-40 object-cover rounded-md mb-4"
+                      className="w-full h-50 object-cover rounded-md mb-4"
                     />
                     <button
                       onClick={(e) => handleSave(home, e)}
@@ -220,7 +216,6 @@ const HomePage = () => {
             <CardSkeleton/>
             <CardSkeleton/>
             <CardSkeleton/>
-            {/* <p className="text-center text-gray-600">No listings available</p> */}
             </>
           )}
         </div>

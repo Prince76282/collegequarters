@@ -5,8 +5,9 @@ const authRoutes = require("./routes/authRoutes");
 const homeListings = require("./routes/homeListings");
 const cors = require("cors");
 const userRoutes = require("./routes/userRoutes");
-const favoritesRoutes = require("./routes/favoritesRoutes");
+const favoritesRoutes = require("./routes/favorites");
 const User = require("./models/User");
+const serviceRoutes = require('./routes/serviceRoutes');
 
 dotenv.config();
 
@@ -26,10 +27,13 @@ app.use(
   })
 );
 
+
+app.use('/api/services', serviceRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/favorites", favoritesRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/homeListings", homeListings);
+app.use(favoritesRoutes);
 
 app.get("/test", (req, res) => {
   res.send("Test endpoint works!");
@@ -82,6 +86,25 @@ app.put("/api/users/:email", async (req, res) => {
     res.status(500).json({ message: "Error updating profile" });
   }
 });
+
+
+app.post('/api/favorites', async (req, res) => {
+  try {
+    const homeData = req.body;
+    console.log('Received data:', homeData);
+
+    // Save data to the database
+    const newFavorite = new FavoriteModel(homeData);
+    await newFavorite.save();
+
+    res.status(200).json({ message: 'Home saved successfully' });
+  } catch (error) {
+    console.error('Error saving home:', error.message);  // Log detailed error message
+    res.status(500).json({ error: 'Internal server error', details: error.message });
+  }
+});
+
+
 
 app.delete("/api/favorites/remove", async (req, res) => {
   const { email, homeId } = req.body;

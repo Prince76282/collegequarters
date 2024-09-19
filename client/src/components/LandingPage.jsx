@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; 
-import { FaRupeeSign, FaMapMarkerAlt, FaBed, FaBath } from 'react-icons/fa';
-import { API_URL } from '../utils/key';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { FaRupeeSign, FaMapMarkerAlt, FaBed, FaBath } from "react-icons/fa";
+import { API_URL } from "../utils/key";
+import CardSkeleton from "./CardSkeleton";
 
 const LandingPage = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [homes, setHomes] = useState([]);
   const [filteredHomes, setFilteredHomes] = useState([]);
   const [filters, setFilters] = useState({
-    forRent: '',
-    priceRange: '',
-    beds: '',
-    homeType: '',
+    forRent: "",
+    priceRange: "",
+    beds: "",
+    homeType: "",
   });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -26,8 +27,8 @@ const LandingPage = () => {
         setHomes(response.data);
         setFilteredHomes(response.data);
       } catch (error) {
-        setError('Error fetching homes.');
-        console.error('Error fetching homes:', error);
+        setError("Error fetching homes.");
+        console.error("Error fetching homes:", error);
       } finally {
         setLoading(false);
       }
@@ -57,16 +58,22 @@ const LandingPage = () => {
     }
 
     if (filters.forRent) {
-      filtered = filtered.filter((home) => home.forRent === (filters.forRent === 'true'));
+      filtered = filtered.filter(
+        (home) => home.forRent === (filters.forRent === "true")
+      );
     }
 
     if (filters.priceRange) {
-      const [minPrice, maxPrice] = filters.priceRange.split('-').map(Number);
-      filtered = filtered.filter((home) => home.price >= minPrice && home.price <= maxPrice);
+      const [minPrice, maxPrice] = filters.priceRange.split("-").map(Number);
+      filtered = filtered.filter(
+        (home) => home.price >= minPrice && home.price <= maxPrice
+      );
     }
 
     if (filters.beds) {
-      filtered = filtered.filter((home) => home.beds === parseInt(filters.beds));
+      filtered = filtered.filter(
+        (home) => home.beds === parseInt(filters.beds)
+      );
     }
 
     if (filters.homeType) {
@@ -88,17 +95,20 @@ const LandingPage = () => {
     if (isLoggedIn) {
       navigate(`/home/${homeId}`);
     } else {
-      navigate('/login', { state: { homeId } });
+      navigate("/login", { state: { homeId } });
     }
   };
 
   if (loading) return <div className="text-center mt-10">Loading...</div>;
-  if (error) return <div className="text-center mt-10 text-red-500">{error}</div>;
+  if (error)
+    return <div className="text-center mt-10 text-red-500">{error}</div>;
 
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="container mx-auto p-6">
-        <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">Find Your Perfect Home</h1>
+        <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">
+          Find Your Perfect Home
+        </h1>
 
         <div className="flex flex-wrap items-center gap-4 mb-6">
           <input
@@ -160,9 +170,18 @@ const LandingPage = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredHomes.length > 0 ? (
             filteredHomes.map((home) => (
-              <div key={home._id} className="bg-white p-5 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <img src={home.imageUrl} alt={home.title} className="w-full h-48 object-cover rounded-md mb-4" />
-                <h2 className="text-xl font-semibold text-gray-800">{home.title}</h2>
+              <div
+                key={home._id}
+                className="bg-white p-5 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+              >
+                <img
+                  src={home.imageUrl}
+                  alt={home.title}
+                  className="w-full h-48 object-cover rounded-md mb-4"
+                />
+                <h2 className="text-xl font-semibold text-gray-800">
+                  {home.title}
+                </h2>
                 <div className="flex items-center text-gray-600 mb-2">
                   <FaMapMarkerAlt className="mr-2 text-blue-600" />
                   <p>{home.area}</p>
@@ -191,7 +210,15 @@ const LandingPage = () => {
               </div>
             ))
           ) : (
-            <div className="text-center col-span-full mt-10 text-gray-600">No homes found.</div>
+            // <div className="text-center col-span-full mt-10 text-gray-600">No homes found.</div>
+            <>
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+            </>
           )}
         </div>
       </div>
