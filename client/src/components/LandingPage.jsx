@@ -49,31 +49,25 @@ const LandingPage = () => {
     let filtered = [...homes];
 
     if (searchTerm) {
-      filtered = filtered.filter(
-        (home) =>
-          home.title.toLowerCase().includes(searchTerm) ||
-          home.area.toLowerCase().includes(searchTerm) ||
-          home.homeType.toLowerCase().includes(searchTerm)
-      );
+      filtered = filtered.filter((home) => {
+        const title = home.title?.toLowerCase() || '';
+        const area = home.area?.toLowerCase() || '';
+        const homeType = home.homeType?.toLowerCase() || '';
+        return title.includes(searchTerm) || area.includes(searchTerm) || homeType.includes(searchTerm);
+      });
     }
 
     if (filters.forRent) {
-      filtered = filtered.filter(
-        (home) => home.forRent === (filters.forRent === "true")
-      );
+      filtered = filtered.filter((home) => home.forRent === (filters.forRent === "true"));
     }
 
     if (filters.priceRange) {
       const [minPrice, maxPrice] = filters.priceRange.split("-").map(Number);
-      filtered = filtered.filter(
-        (home) => home.price >= minPrice && home.price <= maxPrice
-      );
+      filtered = filtered.filter((home) => home.price >= minPrice && home.price <= maxPrice);
     }
 
     if (filters.beds) {
-      filtered = filtered.filter(
-        (home) => home.beds === parseInt(filters.beds)
-      );
+      filtered = filtered.filter((home) => home.beds === parseInt(filters.beds));
     }
 
     if (filters.homeType) {
@@ -100,15 +94,12 @@ const LandingPage = () => {
   };
 
   if (loading) return <div className="text-center mt-10">Loading...</div>;
-  if (error)
-    return <div className="text-center mt-10 text-red-500">{error}</div>;
+  if (error) return <div className="text-center mt-10 text-red-500">{error}</div>;
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <div className="container mx-auto p-6">
-        <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">
-          Find Your Perfect Home
-        </h1>
+      <div className="container mx-auto p-6 mt-20">
+        <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">Find Your Perfect Home</h1>
 
         <div className="flex flex-wrap items-center gap-4 mb-6">
           <input
@@ -172,16 +163,14 @@ const LandingPage = () => {
             filteredHomes.map((home) => (
               <div
                 key={home._id}
-                className="bg-white p-5 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+                className="bg-white p-5 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2"
               >
                 <img
                   src={home.imageUrl}
                   alt={home.title}
                   className="w-full h-48 object-cover rounded-md mb-4"
                 />
-                <h2 className="text-xl font-semibold text-gray-800">
-                  {home.title}
-                </h2>
+                <h2 className="text-xl font-semibold text-gray-800">{home.title}</h2>
                 <div className="flex items-center text-gray-600 mb-2">
                   <FaMapMarkerAlt className="mr-2 text-blue-600" />
                   <p>{home.area}</p>
@@ -210,7 +199,6 @@ const LandingPage = () => {
               </div>
             ))
           ) : (
-            // <div className="text-center col-span-full mt-10 text-gray-600">No homes found.</div>
             <>
               <CardSkeleton />
               <CardSkeleton />

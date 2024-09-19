@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { API_URL } from "../utils/key"; // Ensure you have the correct API URL
+import { API_URL } from "../utils/key";
+import { FaSearch, FaMapMarkerAlt, FaPhone, FaDollarSign, FaTag } from 'react-icons/fa';
 
 const ServiceFilter = ({ filters, handleFilterChange }) => {
   return (
@@ -20,6 +21,35 @@ const ServiceFilter = ({ filters, handleFilterChange }) => {
         <option value="Plumber">Plumber</option>
         <option value="Laundry">Laundry</option>
       </select>
+    </div>
+  );
+};
+
+const ServiceCard = ({ service }) => {
+  return (
+    <div className="p-4 border rounded-lg shadow-lg bg-white hover:shadow-xl transition-shadow duration-300">
+      <img
+        src={service.imageUrl || 'https://via.placeholder.com/150'}
+        alt={service.name || 'No name available'}
+        className="w-full h-48 object-cover mb-4 rounded-t-lg"
+      />
+      <h3 className="text-xl font-semibold mb-2">{service.name || 'No name available'}</h3>
+      <div className="flex items-center mb-1 text-gray-600">
+        <FaPhone className="mr-2" />
+        <p>{service.phone || 'No phone available'}</p>
+      </div>
+      <div className="flex items-center mb-1 text-gray-600">
+        <FaMapMarkerAlt className="mr-2" />
+        <p>{service.address || 'No address available'}</p>
+      </div>
+      <div className="flex items-center mb-1 text-gray-600">
+        <FaDollarSign className="mr-2" />
+        <p>${service.price !== undefined ? service.price : 'No price available'}</p>
+      </div>
+      <div className="flex items-center text-gray-600">
+        <FaTag className="mr-2" />
+        <p>{service.serviceType || 'No service type available'}</p>
+      </div>
     </div>
   );
 };
@@ -56,7 +86,6 @@ const ServicePage = () => {
   }, []);
 
   const filteredServices = services.filter((service) => {
-    // Ensure service is defined and has the serviceType property
     if (!service || typeof service.serviceType === 'undefined') return false;
 
     const serviceType = service.serviceType.toLowerCase();
@@ -66,32 +95,21 @@ const ServicePage = () => {
   });
 
   return (
-    <div className="container mx-auto p-4 mt-24">
+    <div className="container mx-auto p-6 mt-12">
       <ServiceFilter filters={filters} handleFilterChange={handleFilterChange} />
 
       {loading ? (
-        <div className="text-center">Loading...</div>
+        <div className="text-center text-gray-600">Loading...</div>
       ) : error ? (
         <div className="text-center text-red-500">{error}</div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredServices.length > 0 ? (
             filteredServices.map((service) => (
-              <div key={service._id} className="p-4 border rounded-lg shadow-md">
-                <img
-                  src={service.imageUrl || 'https://via.placeholder.com/150'}
-                  alt={service.name || 'No name available'}
-                  className="w-full h-48 object-cover mb-4"
-                />
-                <h3 className="text-lg font-bold">{service.name || 'No name available'}</h3>
-                <p>{service.phone || 'No phone available'}</p>
-                <p>{service.address || 'No address available'}</p>
-                <p>${service.price !== undefined ? service.price : 'No price available'}</p>
-                <p>{service.serviceType || 'No service type available'}</p>
-              </div>
+              <ServiceCard key={service._id} service={service} />
             ))
           ) : (
-            <p>No services available for this filter</p>
+            <p className="text-center text-gray-600">No services available for this filter</p>
           )}
         </div>
       )}

@@ -101,9 +101,9 @@ const HomePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F9F9F9]">
-      <div className="container mx-auto mt-24 p-5">
-        <h1 className="text-4xl font-bold text-center mb-8 text-[#333333]">Home Listings</h1>
+    <div className="min-h-screen bg-gray-100">
+      <div className="container mx-auto mt-24 p-6">
+        <h1 className="text-4xl font-extrabold text-center mb-8 text-gray-800">Home Listings</h1>
 
         {/* Search and Filter Section */}
         <div className="flex flex-wrap items-center gap-4 mb-6">
@@ -112,14 +112,14 @@ const HomePage = () => {
             value={searchTerm}
             onChange={handleSearch}
             placeholder="Search homes by title, area, or type..."
-            className="flex-grow p-3 border border-[#DDDDDD] rounded-lg shadow-md bg-white focus:outline-none focus:ring-2 focus:ring-[#E0F2F1]"
+            className="flex-grow p-3 border border-gray-300 rounded-lg shadow-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300 ease-in-out transform hover:scale-105"
           />
 
           <select
             name="forRent"
             value={filters.forRent}
             onChange={handleFilterChange}
-            className="p-3 border border-gray-300 rounded-lg shadow-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="p-3 border border-gray-300 rounded-lg shadow-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300 ease-in-out transform hover:scale-105"
           >
             <option value="">For Rent</option>
             <option value="true">For Rent</option>
@@ -130,7 +130,7 @@ const HomePage = () => {
             name="priceRange"
             value={filters.priceRange}
             onChange={handleFilterChange}
-            className="p-3 border border-[#DDDDDD] rounded-lg shadow-md bg-white focus:outline-none focus:ring-2 focus:ring-[#E0F2F1]"
+            className="p-3 border border-gray-300 rounded-lg shadow-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300 ease-in-out transform hover:scale-105"
           >
             <option value="">Price Range</option>
             <option value="0-1000">0 - 1000</option>
@@ -143,7 +143,7 @@ const HomePage = () => {
             name="beds"
             value={filters.beds}
             onChange={handleFilterChange}
-            className="p-3 border border-[#DDDDDD] rounded-lg shadow-md bg-white focus:outline-none focus:ring-2 focus:ring-[#E0F2F1]"
+            className="p-3 border border-gray-300 rounded-lg shadow-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300 ease-in-out transform hover:scale-105"
           >
             <option value="">BHK</option>
             <option value="1">1 BHK</option>
@@ -155,7 +155,7 @@ const HomePage = () => {
             name="homeType"
             value={filters.homeType}
             onChange={handleFilterChange}
-            className="p-3 border border-[#DDDDDD] rounded-lg shadow-md bg-white focus:outline-none focus:ring-2 focus:ring-[#E0F2F1]"
+            className="p-3 border border-gray-300 rounded-lg shadow-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300 ease-in-out transform hover:scale-105"
           >
             <option value="">Home Type</option>
             <option value="Independent">Independent</option>
@@ -167,40 +167,40 @@ const HomePage = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredHomes.length > 0 ? (
             filteredHomes.map((home) => (
-              <div key={home._id} className="bg-white p-5 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <Link to={`/home/${home._id}`} className="cursor-pointer">
+              <div key={home._id} className="bg-white p-5 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 hover:scale-105 transform">
+                <Link to={`/home/${home._id}`} className="cursor-pointer block">
                   <div className="relative">
                     <img
-                      src={home.imageUrl}
-                      alt={home.title}
-                      className="w-full h-50 object-cover rounded-md mb-4"
+                      src={home.imageUrl || 'https://via.placeholder.com/300'}
+                      alt={home.title || 'No title available'}
+                      className="w-full h-56 object-cover rounded-md mb-4"
                     />
                     <button
                       onClick={(e) => handleSave(home, e)}
-                      className="absolute top-2 right-2 bg-white text-red-500 p-2 rounded-full shadow-lg hover:bg-red-100 transition-colors duration-300"
+                      className="absolute top-3 right-3 bg-white text-red-500 p-2 rounded-full shadow-lg hover:bg-red-100 transition-colors duration-300"
                     >
                       <FaHeart className="text-xl" />
                     </button>
                   </div>
-                  <h2 className="text-xl font-semibold text-[#333333] mb-2">{home.title}</h2> 
+                  <h2 className="text-xl font-semibold text-gray-800 mb-2">{home.title || 'No title available'}</h2> 
                   <div className="flex items-center text-gray-600 mb-2">
                     <FaMapMarkerAlt className="mr-2 text-blue-600" />
-                    <p>{home.area}</p>
+                    <p>{home.area || 'No area available'}</p>
                   </div>
                   <div className="flex items-center text-gray-600 mb-2">
                     <FaRupeeSign className="mr-2 text-green-600" />
-                    <p>₹{home.price}</p>
+                    <p>₹{home.price || 'No price available'}</p>
                   </div>
                   <div className="flex items-center text-gray-600 mb-2">
                     <FaBed className="mr-2 text-yellow-600" />
-                    <p>{home.beds} Beds</p>
+                    <p>{home.beds || 'N/A'} Beds</p>
                   </div>
                   <div className="flex items-center text-gray-600 mb-2">
                     <FaBath className="mr-2 text-purple-600" />
-                    <p>{home.baths} Baths</p>
+                    <p>{home.baths || 'N/A'} Baths</p>
                   </div>
-                  <p className="text-gray-600 mb-2"><strong>Home Type:</strong> {home.homeType}</p>
-                  <p className="text-gray-600 mb-2"><strong>Phone No:</strong> {home.phoneNo}</p>
+                  <p className="text-gray-600 mb-2"><strong>Home Type:</strong> {home.homeType || 'No type available'}</p>
+                  <p className="text-gray-600 mb-2"><strong>Phone No:</strong> {home.phoneNo || 'No phone available'}</p>
                   {home.bargain && <p className="text-green-600 font-semibold">Negotiable</p>}
                 </Link>
               </div>
