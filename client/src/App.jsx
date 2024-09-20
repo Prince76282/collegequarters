@@ -12,7 +12,7 @@ import PrivacyPolicy from "./components/PrivacyPolicy"; // Import PrivacyPolicy 
 import { useAuth0 } from "@auth0/auth0-react";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ServicePage from "./components/ServicesPage"
-import FavoritesPage from "./components/FavoritesPage";
+
 
 function App() {
   const { user } = useAuth0();
@@ -39,11 +39,7 @@ function App() {
               path="/service"
               element={<ProtectedRoute Component={ServicePage} />}
             />
-              <Route
-              exact
-              path="/favorites"
-              element={<ProtectedRoute Component={FavoritesPage} />}
-            />
+             
             <Route
               exact
               path="/home/:id"

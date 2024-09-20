@@ -27,8 +27,8 @@ const Navbar = () => {
   }, []);
 
   const handleMenuItemClick = (path) => {
-    setIsMobileMenuOpen(false); // Close mobile menu on link click
-    navigate(path); // Navigate to the specified path
+    setIsMobileMenuOpen(false); 
+    navigate(path);
   };
 
   const isProfilePage = location.pathname === "/profile";
@@ -48,7 +48,7 @@ const Navbar = () => {
         <div className="hidden md:flex items-center space-x-4">
           <Link to="/home" className={`px-4 py-2 rounded-lg ${isHomePage ? "bg-blue-600 text-white" : "bg-gray-300 text-black hover:bg-blue-400 hover:text-white"}`}>Home</Link>
           <Link to="/service" className={`px-4 py-2 rounded-lg ${isServicePage ? "bg-blue-600 text-white" : "bg-gray-300 text-black hover:bg-blue-400 hover:text-white"}`}>Services</Link>
-          <Link to="/favorites" className={`px-4 py-2 rounded-lg ${isFavoritesPage ? "bg-blue-600 text-white" : "bg-gray-300 text-black hover:bg-blue-400 hover:text-white"}`}>Favorites</Link>
+          
           {loading ? (
             <div className="w-28 h-10 rounded-lg bg-gray-200 animate-pulse"></div>
           ) : isLoggedIn ? (
@@ -73,7 +73,7 @@ const Navbar = () => {
         <div className="md:hidden bg-gray-600 p-4">
           <Link to="/home" className={`block px-4 py-2 rounded-lg ${isHomePage ? "bg-blue-600 text-white" : "hover:bg-blue-400 hover:text-white"}`} onClick={() => handleMenuItemClick("/")}>Home</Link>
           <Link to="/service" className={`block px-4 py-2 rounded-lg ${isServicePage ? "bg-blue-600 text-white" : "hover:bg-blue-400 hover:text-white"}`} onClick={() => handleMenuItemClick("/service")}>Services</Link>
-          <Link to="/favorites" className={`block px-4 py-2 rounded-lg ${isFavoritesPage ? "bg-blue-600 text-white" : "hover:bg-blue-400 hover:text-white"}`} onClick={() => handleMenuItemClick("/favorites")}>Favorites</Link>
+          
           {loading ? (
             <div className="w-28 h-10 rounded-lg bg-gray-200 animate-pulse"></div>
           ) : isLoggedIn ? (
