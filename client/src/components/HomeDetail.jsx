@@ -77,7 +77,7 @@ const HomeDetail = () => {
                   <video
                     className="w-full h-76 object-cover rounded-lg"
                     controls
-                    style={{ maxHeight: "80vh" }}
+                    style={{ maxHeight: "60vh" }}
                   >
                     
                     <source src={home.videoUrl} type="video/mp4" />
