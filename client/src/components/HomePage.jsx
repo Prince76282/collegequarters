@@ -89,7 +89,12 @@ const HomePage = () => {
       const response = await axios.post(`${API_URL}/favorites`, {
         email: "useremail.@has",
         homeId: home._id,
-        imageUrl: home.imageUrl 
+        imageUrl: home.imageUrl ,
+        homeType: home.homeType,
+        area: home.area,
+        beds: home.beds,
+        baths: home.baths,
+        price: home.price,
       });
   
       if (response.status === 200) {
@@ -101,27 +106,27 @@ const HomePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="container mx-auto mt-24 p-6">
-        <h1 className="text-4xl font-extrabold text-center mb-8 text-gray-800">Home Listings</h1>
+    <div className="min-h-screen bg-gradient-to-r from-blue-50 via-white to-blue-50 py-10">
+      <div className="container mx-auto px-4 lg:px-12">
+        <h1 className="text-5xl font-bold text-center mb-12 text-gray-800 drop-shadow-lg">Explore Homes</h1>
 
         {/* Search and Filter Section */}
-        <div className="flex flex-wrap items-center gap-4 mb-6">
+        <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
           <input
             type="text"
             value={searchTerm}
             onChange={handleSearch}
             placeholder="Search homes by title, area, or type..."
-            className="flex-grow p-3 border border-gray-300 rounded-lg shadow-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300 ease-in-out transform hover:scale-105"
+            className="flex-grow p-3 border border-gray-300 rounded-lg shadow-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300 ease-in-out transform hover:scale-105"
           />
 
           <select
             name="forRent"
             value={filters.forRent}
             onChange={handleFilterChange}
-            className="p-3 border border-gray-300 rounded-lg shadow-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300 ease-in-out transform hover:scale-105"
+            className="p-3 border border-gray-300 rounded-lg shadow-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300 ease-in-out transform hover:scale-105"
           >
-             <option value="">PG</option>
+            <option value="">PG</option>
             <option value="true">Boy's</option>
             <option value="false">Girl's</option>
           </select>
@@ -130,7 +135,7 @@ const HomePage = () => {
             name="priceRange"
             value={filters.priceRange}
             onChange={handleFilterChange}
-            className="p-3 border border-gray-300 rounded-lg shadow-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300 ease-in-out transform hover:scale-105"
+            className="p-3 border border-gray-300 rounded-lg shadow-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300 ease-in-out transform hover:scale-105"
           >
             <option value="">Price Range</option>
             <option value="0-1000">0 - 1000</option>
@@ -143,7 +148,7 @@ const HomePage = () => {
             name="beds"
             value={filters.beds}
             onChange={handleFilterChange}
-            className="p-3 border border-gray-300 rounded-lg shadow-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300 ease-in-out transform hover:scale-105"
+            className="p-3 border border-gray-300 rounded-lg shadow-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300 ease-in-out transform hover:scale-105"
           >
             <option value="">BHK</option>
             <option value="1">1 BHK</option>
@@ -155,7 +160,7 @@ const HomePage = () => {
             name="homeType"
             value={filters.homeType}
             onChange={handleFilterChange}
-            className="p-3 border border-gray-300 rounded-lg shadow-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300 ease-in-out transform hover:scale-105"
+            className="p-3 border border-gray-300 rounded-lg shadow-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300 ease-in-out transform hover:scale-105"
           >
             <option value="">Home Type</option>
             <option value="Independent">Independent</option>
@@ -164,16 +169,16 @@ const HomePage = () => {
         </div>
 
         {/* Home Listings */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredHomes.length > 0 ? (
             filteredHomes.map((home) => (
-              <div key={home._id} className="bg-white p-5 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 hover:scale-105 transform">
+              <div key={home._id} className="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 transform">
                 <Link to={`/home/${home._id}`} className="cursor-pointer block">
                   <div className="relative">
                     <img
                       src={home.imageUrl || 'https://via.placeholder.com/300'}
                       alt={home.title || 'No title available'}
-                      className="w-full h-56 object-cover rounded-md mb-4"
+                      className="w-full h-64 object-cover rounded-md mb-4"
                     />
                     <button
                       onClick={(e) => handleSave(home, e)}
@@ -182,7 +187,7 @@ const HomePage = () => {
                       <FaHeart className="text-xl" />
                     </button>
                   </div>
-                  <h2 className="text-xl font-semibold text-gray-800 mb-2">{home.title || 'No title available'}</h2> 
+                  <h2 className="text-2xl font-semibold text-gray-800 mb-2">{home.title || 'No title available'}</h2> 
                   <div className="flex items-center text-gray-600 mb-2">
                     <FaMapMarkerAlt className="mr-2 text-blue-600" />
                     <p>{home.area || 'No area available'}</p>
@@ -201,19 +206,12 @@ const HomePage = () => {
                   </div>
                   <p className="text-gray-600 mb-2"><strong>Home Type:</strong> {home.homeType || 'No type available'}</p>
                   <p className="text-gray-600 mb-2"><strong>Phone No:</strong> {home.phoneNo || 'No phone available'}</p>
-                  {home.bargain && <p className="text-green-600 font-semibold">Negotiable</p>}
+                  {home.bargain && <p className="text-green-500 font-semibold">Bargain Available</p>}
                 </Link>
               </div>
             ))
           ) : (
-            <>
-              <CardSkeleton/>
-              <CardSkeleton/>
-              <CardSkeleton/>
-              <CardSkeleton/>
-              <CardSkeleton/>
-              <CardSkeleton/>
-            </>
+            <CardSkeleton />
           )}
         </div>
       </div>
