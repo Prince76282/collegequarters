@@ -65,7 +65,7 @@ const HomeDetail = () => {
                   <img
                     src={url}
                     alt={`Home Image ${index + 1}`}
-                    className="w-full h-auto object-cover rounded-lg"
+                    className="w-full h-76 object-cover rounded-lg"
                     // Setting max-height based on screen sizes
                     style={{ maxHeight: "80vh" }}
                   />
@@ -75,7 +75,7 @@ const HomeDetail = () => {
               {home.videoUrl && (
                 <div className="relative mt-5">
                   <video
-                    className="w-full h-auto object-cover rounded-lg"
+                    className="w-full h-76 object-cover rounded-lg"
                     controls
                     style={{ maxHeight: "80vh" }}
                   >
