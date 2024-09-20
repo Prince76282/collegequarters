@@ -121,9 +121,9 @@ const HomePage = () => {
             onChange={handleFilterChange}
             className="p-3 border border-gray-300 rounded-lg shadow-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300 ease-in-out transform hover:scale-105"
           >
-            <option value="">For Rent</option>
-            <option value="true">For Rent</option>
-            <option value="false">For Sale</option>
+             <option value="">PG</option>
+            <option value="true">Boy's</option>
+            <option value="false">Girl's</option>
           </select>
 
           <select
