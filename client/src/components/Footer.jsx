@@ -36,7 +36,7 @@ const Footer = () => {
       </div>
 
       <div className="flex justify-center md:justify-end space-x-3 mt-4">
-        <a href="https://www.instagram.com/collegequaters.in/?utm_source=ig_web_button_share_sheet" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-500 transition duration-200 ease-in-out">
+        <a href="https://www.facebook.com/profile.php?id=61565401167170&mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-500 transition duration-200 ease-in-out">
           <FaFacebookF size={24} />
         </a>
         <a href="https://www.instagram.com/collegequaters.in/?utm_source=ig_web_button_share_sheet" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-pink-400 transition duration-200 ease-in-out">
