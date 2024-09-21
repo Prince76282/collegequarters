@@ -50,24 +50,34 @@ const LandingPage = () => {
 
     if (searchTerm) {
       filtered = filtered.filter((home) => {
-        const title = home.title?.toLowerCase() || '';
-        const area = home.area?.toLowerCase() || '';
-        const homeType = home.homeType?.toLowerCase() || '';
-        return title.includes(searchTerm) || area.includes(searchTerm) || homeType.includes(searchTerm);
+        const title = home.title?.toLowerCase() || "";
+        const area = home.area?.toLowerCase() || "";
+        const homeType = home.homeType?.toLowerCase() || "";
+        return (
+          title.includes(searchTerm) ||
+          area.includes(searchTerm) ||
+          homeType.includes(searchTerm)
+        );
       });
     }
 
     if (filters.forRent) {
-      filtered = filtered.filter((home) => home.forRent === (filters.forRent === "true"));
+      filtered = filtered.filter(
+        (home) => home.forRent === (filters.forRent === "true")
+      );
     }
 
     if (filters.priceRange) {
       const [minPrice, maxPrice] = filters.priceRange.split("-").map(Number);
-      filtered = filtered.filter((home) => home.price >= minPrice && home.price <= maxPrice);
+      filtered = filtered.filter(
+        (home) => home.price >= minPrice && home.price <= maxPrice
+      );
     }
 
     if (filters.beds) {
-      filtered = filtered.filter((home) => home.beds === parseInt(filters.beds));
+      filtered = filtered.filter(
+        (home) => home.beds === parseInt(filters.beds)
+      );
     }
 
     if (filters.homeType) {
@@ -94,69 +104,72 @@ const LandingPage = () => {
   };
 
   if (loading) return <div className="text-center mt-10">Loading...</div>;
-  if (error) return <div className="text-center mt-10 text-red-500">{error}</div>;
+  if (error)
+    return <div className="text-center mt-10 text-red-500">{error}</div>;
 
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="container mx-auto p-6 mt-20">
-        <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">Find Your Perfect Home</h1>
+        <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">
+          Find Your Perfect Home
+        </h1>
 
         <div className="flex flex-wrap items-center justify-center gap-6 mb-16 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl shadow-lg">
-  <input
-    type="text"
-    value={searchTerm}
-    onChange={handleSearch}
-    placeholder="🔍 Search homes by title, area, or type..."
-    className="flex-grow p-4 border border-blue-200 rounded-lg shadow-md bg-white text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-blue-500 transition-all duration-300 ease-in-out transform hover:scale-105 hover:border-blue-400"
-  />
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={handleSearch}
+            placeholder="🔍 Search homes by title, area, or type..."
+            className="flex-grow p-4 border border-blue-200 rounded-lg shadow-md bg-white text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-blue-500 transition-all duration-300 ease-in-out transform hover:scale-105 hover:border-blue-400"
+          />
 
-  <select
-    name="forRent"
-    value={filters.forRent}
-    onChange={handleFilterChange}
-    className="p-4 border border-blue-200 rounded-lg shadow-md bg-white text-gray-800 focus:outline-none focus:ring-4 focus:ring-blue-500 transition-all duration-300 ease-in-out transform hover:scale-105 hover:border-blue-400"
-  >
-    <option value="">PG</option>
-    <option value="true">Boy's</option>
-    <option value="false">Girl's</option>
-  </select>
+          <select
+            name="forRent"
+            value={filters.forRent}
+            onChange={handleFilterChange}
+            className="p-4 border border-blue-200 rounded-lg shadow-md bg-white text-gray-800 focus:outline-none focus:ring-4 focus:ring-blue-500 transition-all duration-300 ease-in-out transform hover:scale-105 hover:border-blue-400"
+          >
+            <option value="">PG</option>
+            <option value="true">Boy's</option>
+            <option value="false">Girl's</option>
+          </select>
 
-  <select
-    name="priceRange"
-    value={filters.priceRange}
-    onChange={handleFilterChange}
-    className="p-4 border border-blue-200 rounded-lg shadow-md bg-white text-gray-800 focus:outline-none focus:ring-4 focus:ring-blue-500 transition-all duration-300 ease-in-out transform hover:scale-105 hover:border-blue-400"
-  >
-    <option value="">Price Range</option>
-    <option value="0-1000">0 - 1000</option>
-    <option value="1001-2000">1001 - 2000</option>
-    <option value="2001-3000">2001 - 3000</option>
-    <option value="18001-19000">18001-19000</option>
-  </select>
+          <select
+            name="priceRange"
+            value={filters.priceRange}
+            onChange={handleFilterChange}
+            className="p-4 border border-blue-200 rounded-lg shadow-md bg-white text-gray-800 focus:outline-none focus:ring-4 focus:ring-blue-500 transition-all duration-300 ease-in-out transform hover:scale-105 hover:border-blue-400"
+          >
+            <option value="">Price Range</option>
+            <option value="0-1000">0 - 1000</option>
+            <option value="1001-2000">1001 - 2000</option>
+            <option value="2001-3000">2001 - 3000</option>
+            <option value="18001-19000">18001-19000</option>
+          </select>
 
-  <select
-    name="bhk"
-    value={filters.bhk}
-    onChange={handleFilterChange}
-    className="p-4 border border-blue-200 rounded-lg shadow-md bg-white text-gray-800 focus:outline-none focus:ring-4 focus:ring-blue-500 transition-all duration-300 ease-in-out transform hover:scale-105 hover:border-blue-400"
-  >
-    <option value="">BHK</option>
-    <option value="1">1 BHK</option>
-    <option value="2">2 BHK</option>
-    <option value="3">3 BHK</option>
-  </select>
+          <select
+            name="bhk"
+            value={filters.bhk}
+            onChange={handleFilterChange}
+            className="p-4 border border-blue-200 rounded-lg shadow-md bg-white text-gray-800 focus:outline-none focus:ring-4 focus:ring-blue-500 transition-all duration-300 ease-in-out transform hover:scale-105 hover:border-blue-400"
+          >
+            <option value="">BHK</option>
+            <option value="1">1 BHK</option>
+            <option value="2">2 BHK</option>
+            <option value="3">3 BHK</option>
+          </select>
 
-  <select
-    name="homeType"
-    value={filters.homeType}
-    onChange={handleFilterChange}
-    className="p-4 border border-blue-200 rounded-lg shadow-md bg-white text-gray-800 focus:outline-none focus:ring-4 focus:ring-blue-500 transition-all duration-300 ease-in-out transform hover:scale-105 hover:border-blue-400"
-  >
-    <option value="">Home Type</option>
-    <option value="Independent">Independent</option>
-    <option value="Dependent">Dependent</option>
-  </select>
-</div>
+          <select
+            name="homeType"
+            value={filters.homeType}
+            onChange={handleFilterChange}
+            className="p-4 border border-blue-200 rounded-lg shadow-md bg-white text-gray-800 focus:outline-none focus:ring-4 focus:ring-blue-500 transition-all duration-300 ease-in-out transform hover:scale-105 hover:border-blue-400"
+          >
+            <option value="">Home Type</option>
+            <option value="Independent">Independent</option>
+            <option value="Dependent">Dependent</option>
+          </select>
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredHomes.length > 0 ? (
@@ -170,7 +183,9 @@ const LandingPage = () => {
                   alt={home.title}
                   className="w-full h-48 object-cover rounded-md mb-4"
                 />
-                <h2 className="text-xl font-semibold text-gray-800">{home.title}</h2>
+                <h2 className="text-xl font-semibold text-gray-800">
+                  {home.title}
+                </h2>
                 <div className="flex items-center text-gray-600 mb-2">
                   <FaMapMarkerAlt className="mr-2 text-blue-600" />
                   <p>{home.area}</p>
