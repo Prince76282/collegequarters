@@ -18,6 +18,7 @@ const LandingPage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [visibleHomesCount, setVisibleHomesCount] = useState(9); // To track how many homes to display initially
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -53,31 +54,21 @@ const LandingPage = () => {
         const title = home.title?.toLowerCase() || "";
         const area = home.area?.toLowerCase() || "";
         const homeType = home.homeType?.toLowerCase() || "";
-        return (
-          title.includes(searchTerm) ||
-          area.includes(searchTerm) ||
-          homeType.includes(searchTerm)
-        );
+        return title.includes(searchTerm) || area.includes(searchTerm) || homeType.includes(searchTerm);
       });
     }
 
     if (filters.forRent) {
-      filtered = filtered.filter(
-        (home) => home.forRent === (filters.forRent === "true")
-      );
+      filtered = filtered.filter((home) => home.forRent === (filters.forRent === "true"));
     }
 
     if (filters.priceRange) {
       const [minPrice, maxPrice] = filters.priceRange.split("-").map(Number);
-      filtered = filtered.filter(
-        (home) => home.price >= minPrice && home.price <= maxPrice
-      );
+      filtered = filtered.filter((home) => home.price >= minPrice && home.price <= maxPrice);
     }
 
     if (filters.beds) {
-      filtered = filtered.filter(
-        (home) => home.beds === parseInt(filters.beds)
-      );
+      filtered = filtered.filter((home) => home.beds === parseInt(filters.beds));
     }
 
     if (filters.homeType) {
@@ -103,17 +94,20 @@ const LandingPage = () => {
     }
   };
 
+  // Handle 'View More' click to show additional homes
+  const handleViewMore = () => {
+    setVisibleHomesCount((prevCount) => prevCount + 9);
+  };
+
   if (loading) return <div className="text-center mt-10">Loading...</div>;
-  if (error)
-    return <div className="text-center mt-10 text-red-500">{error}</div>;
+  if (error) return <div className="text-center mt-10 text-red-500">{error}</div>;
 
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="container mx-auto p-6 mt-20">
-        <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">
-          Find Your Perfect Home
-        </h1>
+        <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">Find Your Perfect Home</h1>
 
+        {/* Search and Filter UI */}
         <div className="flex flex-wrap items-center justify-center gap-6 mb-16 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl shadow-lg">
           <input
             type="text"
@@ -171,9 +165,10 @@ const LandingPage = () => {
           </select>
         </div>
 
+        {/* Homes List */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredHomes.length > 0 ? (
-            filteredHomes.map((home) => (
+            filteredHomes.slice(0, visibleHomesCount).map((home) => (
               <div
                 key={home._id}
                 className="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 transform"
@@ -183,9 +178,7 @@ const LandingPage = () => {
                   alt={home.title}
                   className="w-full h-48 object-cover rounded-md mb-4"
                 />
-                <h2 className="text-xl font-semibold text-gray-800">
-                  {home.title}
-                </h2>
+                <h2 className="text-xl font-semibold text-gray-800">{home.title}</h2>
                 <div className="flex items-center text-gray-600 mb-2">
                   <FaMapMarkerAlt className="mr-2 text-blue-600" />
                   <p>{home.area}</p>
@@ -206,24 +199,29 @@ const LandingPage = () => {
                   <strong>Home Type:</strong> {home.homeType}
                 </p>
                 <button
-                  className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
                   onClick={() => handleViewDetails(home._id)}
+                  className="mt-4 bg-blue-600 text-white p-2 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300 ease-in-out"
                 >
                   View Details
                 </button>
               </div>
             ))
           ) : (
-            <>
-              <CardSkeleton />
-              <CardSkeleton />
-              <CardSkeleton />
-              <CardSkeleton />
-              <CardSkeleton />
-              <CardSkeleton />
-            </>
+            <CardSkeleton/>
           )}
         </div>
+
+        {/* "View More" Button */}
+        {filteredHomes.length > visibleHomesCount && (
+          <div className="text-center mt-8">
+            <button
+              onClick={handleViewMore}
+              className="bg-indigo-600 text-white px-6 py-2 rounded-lg shadow-lg hover:bg-indigo-700 transition duration-300 ease-in-out"
+            >
+              View More
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
