@@ -41,7 +41,7 @@ const Navbar = () => {
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center">
           <Link to="/" className="flex items-center">
-            <img src={logo} alt="Logo" className="h-18 w-24" />
+            <img src={logo} alt="Logo" className="h-16 w-20" />
           </Link>
         </div>
         
@@ -64,14 +64,14 @@ const Navbar = () => {
 
         <div className="md:hidden flex items-center">
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-white focus:outline-none">
-            {isMobileMenuOpen ? '✖️' : '☰'}
+            {isMobileMenuOpen ? '✖️': '☰'}
           </button>
         </div>
       </div>
 
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-gray-600 p-4">
-          <Link to="/home" className={`block px-4 py-2 rounded-lg ${isHomePage ? "bg-blue-600 text-white" : "hover:bg-blue-400 hover:text-white"}`} onClick={() => handleMenuItemClick("/")}>Home</Link>
+        <div className="md:hidden bg-gray-700  p-4 rounded-lg">
+          <Link to="/home" className={`block px-4 py-4 rounded-lg ${isHomePage ? "bg-blue-600 text-white" : "hover:bg-blue-400 hover:text-white"}`} onClick={() => handleMenuItemClick("/")}>Home</Link>
           <Link to="/service" className={`block px-4 py-2 rounded-lg ${isServicePage ? "bg-blue-600 text-white" : "hover:bg-blue-400 hover:text-white"}`} onClick={() => handleMenuItemClick("/service")}>Services</Link>
           
           {loading ? (
@@ -81,7 +81,7 @@ const Navbar = () => {
               <FaUser className="mr-2" /> {user?.displayName || "Profile"}
             </button>
           ) : (
-            <button onClick={() => navigate("/login")} className="block w-full text-left px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-400">
+            <button onClick={() => navigate("/login")} className="block w-full text-left px-4 py-2 flex items-center text-white rounded-lg hover:bg-blue-400">
               <FaSignInAlt className="mr-2" /> Login
             </button>
           )}

@@ -67,8 +67,8 @@ const LandingPage = () => {
       filtered = filtered.filter((home) => home.price >= minPrice && home.price <= maxPrice);
     }
 
-    if (filters.beds) {
-      filtered = filtered.filter((home) => home.beds === parseInt(filters.beds));
+    if (filters.bhk) {
+      filtered = filtered.filter((home) => home.bhk === parseInt(filters.bhk));
     }
 
     if (filters.homeType) {
@@ -105,7 +105,9 @@ const LandingPage = () => {
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="container mx-auto p-6 mt-20">
-        <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">Find Your Perfect Home</h1>
+        <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">
+          Find Your Perfect Home
+        </h1>
 
         {/* Search and Filter UI */}
         <div className="flex flex-wrap items-center justify-center gap-6 mb-16 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl shadow-lg">
@@ -178,7 +180,9 @@ const LandingPage = () => {
                   alt={home.title}
                   className="w-full h-48 object-cover rounded-md mb-4"
                 />
-                <h2 className="text-xl font-semibold text-gray-800">{home.title}</h2>
+                <h2 className="text-xl font-semibold text-gray-800">
+                  {home.title}
+                </h2>
                 <div className="flex items-center text-gray-600 mb-2">
                   <FaMapMarkerAlt className="mr-2 text-blue-600" />
                   <p>{home.area}</p>
@@ -207,7 +211,7 @@ const LandingPage = () => {
               </div>
             ))
           ) : (
-            <CardSkeleton/>
+            <CardSkeleton />
           )}
         </div>
 
