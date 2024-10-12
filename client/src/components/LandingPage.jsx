@@ -94,7 +94,6 @@ const LandingPage = () => {
     }
   };
 
-  // Handle 'View More' click to show additional homes
   const handleViewMore = () => {
     setVisibleHomesCount((prevCount) => prevCount + 9);
   };
