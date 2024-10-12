@@ -103,7 +103,7 @@ const LandingPage = () => {
   if (error) return <div className="text-center mt-10 text-red-500">{error}</div>;
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    // <div className="min-h-screen bg-gray-100">
       <div className="container mx-auto p-6 mt-20">
         <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">
           Find Your Perfect Home
@@ -227,7 +227,7 @@ const LandingPage = () => {
           </div>
         )}
       </div>
-    </div>
+    // </div>
   );
 };
 

@@ -36,7 +36,7 @@ const PrivacyPolicy = () => {
 
         <h2 className="text-2xl font-semibold mb-4">6. Contact Us</h2>
         <p>
-          If you have any questions about this Privacy Policy, please contact us at support@yourhomerent.com.
+          If you have any questions about this Privacy Policy, please contact us at support (collegequarters71@gmail.com).
         </p>
       </div>
     </div>

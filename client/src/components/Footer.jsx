@@ -24,7 +24,7 @@ const Footer = () => {
           </form>
         </div>
 
-        {/* Right section */}
+        
         <div className="md:w-1/2 mt-4 text-center md:text-right mb-4">
           <div className="flex flex-col items-center md:items-end mb-4 md:mb-0">
             <a
@@ -42,7 +42,7 @@ const Footer = () => {
 
           <div className="flex justify-center md:justify-end space-x-3 mt-4">
             <a
-              href="https://www.facebook.com/profile.php?id=61565371378900&mibextid=ZbWKwL"
+              href="https://www.facebook.com/profile.php?id=61567218950378&mibextid=ZbWKwL"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-blue-500 transition duration-200 ease-in-out"
