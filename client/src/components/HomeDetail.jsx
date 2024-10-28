@@ -54,8 +54,7 @@ const HomeDetail = () => {
       <div className="container mx-auto p-4 lg:p-8">
         <div>
           {(home.imageUrls && home.imageUrls.length > 0) || home.videoUrl ? (
-            <div className="mb-8">
-            <h3 className="text-3xl font-bold mb-6 text-gray-800">Gallery</h3>
+            <div className="mb-8 mt-20">
             <Slider {...sliderSettings} className="relative">
               {home.imageUrls.map((url, index) => (
                 <div
@@ -66,7 +65,7 @@ const HomeDetail = () => {
                     src={url}
                     alt={`Home Image ${index + 1}`}
                     className="w-full h-76 object-cover rounded-lg"
-                    // Setting max-height based on screen sizes
+                 
                     style={{ maxHeight: "80vh" }}
                   />
                 </div>
@@ -92,33 +91,33 @@ const HomeDetail = () => {
             <p className="text-center mb-8 text-gray-600">No media available</p>
           )}
 
-          <div className="bg-white p-6 rounded-lg shadow-lg mb-8">
-            <h2 className="text-4xl font-bold mb-4 text-gray-800">
+          <div className="bg-gradient-to-b from-gray-900 to-gray-800 p-6 rounded-lg shadow-lg mb-8">
+            <h2 className="text-4xl font-bold mb-4 text-white">
               {home.title}
             </h2>
-            <div className="flex items-center text-gray-600 mb-2">
-              <FaMapMarkerAlt className="mr-2 text-blue-600" />
+            <div className="flex items-center text-white mb-2">
+              <FaMapMarkerAlt className="mr-2 text-white" />
               <p>{home.area}</p>
             </div>
-            <div className="flex items-center text-gray-600 mb-2">
+            <div className="flex items-center text-white mb-2">
               <FaRupeeSign className="mr-2 text-green-600" />
-              <p>₹{home.price}</p>
+              <p>{home.price}</p>
             </div>
-            <div className="flex items-center text-gray-600 mb-2">
+            <div className="flex items-center text-white mb-2">
               <FaBed className="mr-2 text-yellow-600" />
-              <p>{home.beds} Beds</p>
+              <p>{home.bhk} BHK</p>
             </div>
-            <div className="flex items-center text-gray-600 mb-2">
+            <div className="flex items-center text-white mb-2">
               <FaBath className="mr-2 text-purple-600" />
               <p>{home.baths} Baths</p>
             </div>
-            <p className="text-gray-600 mb-2">
+            <p className="text-white mb-2">
               <strong>Home Type:</strong> {home.homeType}
             </p>
-            <p className="text-gray-600 mb-2">
+            <p className="text-white mb-2">
               <strong>For Rent:</strong> {home.forRent ? "Boy's" : "Girl's"}
             </p>
-            <p className="text-gray-600 mb-2">
+            <p className="text-white mb-2">
               <strong>Phone No:</strong> {home.phoneNo}
             </p>
             {home.bargain && (
@@ -127,12 +126,12 @@ const HomeDetail = () => {
 
             {home.amenities && home.amenities.length > 0 && (
               <div className="mt-6">
-                <h3 className="text-2xl font-semibold mb-4 text-gray-800">
+                <h3 className="text-2xl font-semibold mb-4 text-white">
                   Amenities
                 </h3>
                 <ul className="list-disc pl-6 space-y-2">
                   {home.amenities.map((amenity, index) => (
-                    <li key={index} className="text-gray-600">
+                    <li key={index} className="text-white">
                       {amenity}
                     </li>
                   ))}
@@ -142,12 +141,12 @@ const HomeDetail = () => {
 
             {home.nearbyAreas && home.nearbyAreas.length > 0 && (
               <div className="mt-6">
-                <h3 className="text-2xl font-semibold mb-4 text-gray-800">
+                <h3 className="text-2xl font-semibold mb-4 text-white">
                   Nearby Areas
                 </h3>
                 <ul className="list-disc pl-6 space-y-2">
                   {home.nearbyAreas.map((area, index) => (
-                    <li key={index} className="text-gray-600">
+                    <li key={index} className="text-white">
                       {area}
                     </li>
                   ))}
