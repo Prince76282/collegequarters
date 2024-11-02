@@ -163,7 +163,7 @@ const HomePage = () => {
           >
             <option value="">Home Type</option>
             <option value="Independent">Independent</option>
-            <option value="Dependent">Dependen</option>
+            <option value="Dependent">Dependent</option>
           </select>
         </div>
 

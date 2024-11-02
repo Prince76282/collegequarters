@@ -6,14 +6,14 @@ import { FaSearch, FaMapMarkerAlt, FaPhone, FaDollarSign, FaTag } from 'react-ic
 const ServiceFilter = ({ filters, handleFilterChange }) => {
   return (
     <div className="my-4">
-      <label htmlFor="serviceType" className="block text-lg font-medium text-gray-700">
+      <label htmlFor="serviceType" className="block text-4xl font-medium text-black p-5">
         Service Type
       </label>
       <select
         name="serviceType"
         value={filters.serviceType}
         onChange={handleFilterChange}
-        className="p-3 mt-1 border border-gray-300 rounded-lg shadow-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 w-full"
+        className="p-3 mt-1 border text-xl border-gray-800 rounded-lg shadow-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 w-full"
       >
         <option value="">All Services</option>
         <option value="Electrician">Electrician</option>
@@ -27,28 +27,28 @@ const ServiceFilter = ({ filters, handleFilterChange }) => {
 
 const ServiceCard = ({ service }) => {
   return (
-    <div className="p-4 border rounded-lg shadow-lg bg-white hover:shadow-xl transition-shadow duration-300">
+    <div className="p-4 border bg-gradient-to-b from-gray-900 to-gray-800 rounded-2xl shadow-lg bg-white hover:shadow-xl transition-shadow duration-300">
       <img
         src={service.imageUrl || 'https://via.placeholder.com/150'}
         alt={service.name || 'No name available'}
-        className="w-full h-48 object-cover mb-4 rounded-t-lg"
+        className="w-full h-50 object-cover mb-4 rounded-xl"
       />
-      <h3 className="text-xl font-semibold mb-2">{service.name || 'No name available'}</h3>
-      <div className="flex items-center mb-1 text-gray-600">
-        <FaPhone className="mr-2" />
-        <p>{service.phone || 'No phone available'}</p>
+      <h3 className="text-3xl font-semibold mb-2  text-white">{service.name || 'No name available'}</h3>
+      <div className="flex text-lg items-center mb-1  text-blue-600">
+        <FaPhone className="mr-2 " />
+        <p className=' text-white'>Phone : {service.phone || 'No phone available'}</p>
       </div>
-      <div className="flex items-center mb-1 text-gray-600">
+      <div className="flex  text-lg items-center mb-1  text-blue-600">
         <FaMapMarkerAlt className="mr-2" />
-        <p>{service.address || 'No address available'}</p>
+        <p className=' text-white'>Area : {service.address || 'No address available'}</p>
       </div>
-      <div className="flex items-center mb-1 text-gray-600">
+      <div className="flex text-lg items-center mb-1 text-blue-600">
         <FaDollarSign className="mr-2" />
-        <p>${service.price !== undefined ? service.price : 'No price available'}</p>
+        <p className=' text-white'>₹{service.price !== undefined ? service.price : 'No price available'}</p>
       </div>
-      <div className="flex items-center text-gray-600">
+      <div className="flex text-lg items-center  text-blue-600">
         <FaTag className="mr-2" />
-        <p>{service.serviceType || 'No service type available'}</p>
+        <p className=' text-white'>{service.serviceType || 'No service type available'}</p>
       </div>
     </div>
   );

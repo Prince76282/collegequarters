@@ -23,8 +23,8 @@ const Footer = () => {
     <footer className="bg-gradient-to-r from-gray-900 to-gray-700 text-white py-8">
       <div className="container mx-auto px-9 md:flex md:justify-between md:items-center text-sm">
         <div className="mb-6 md:mb-0 md:w-1/2">
-          <h3 className="text-lg font-bold mb-2 text-center md:text-left">Stay Updated!</h3>
-          <p className="text-white mb-4 text-center md:text-left">
+          <h3 className="text-lg font-bold mb-2 text-xl text-center md:text-left">Stay Updated!</h3>
+          <p className="text-white mb-4 text-lg text-center md:text-left">
             Subscribe to receive the latest rental properties and exclusive offers.
           </p>
 
@@ -48,10 +48,10 @@ const Footer = () => {
         </div>
 
         <div className="md:w-1/2 text-center md:text-right">
-          <h3 className="text-lg font-bold mb-2">Quick Links</h3>
+          <h3 className="text-xl font-bold mb-2">Quick Links</h3>
           <div className="flex flex-col items-center md:items-end mb-4 md:mb-0">
-            <a href="/terms" className="text-gray-400 hover:text-white text-xs mb-1 transition duration-200 ease-in-out">Terms of Service</a>
-            <a href="/privacy" className="text-gray-400 hover:text-white text-xs transition duration-200 ease-in-out">Privacy Policy</a>
+            <a href="/terms" className="text-gray-400 hover:text-white text-lg mb-1 transition duration-200 ease-in-out">Terms of Service</a>
+            <a href="/privacy" className="text-gray-400 hover:text-white text-lg transition duration-200 ease-in-out">Privacy Policy</a>
           </div>
 
           <div className="flex justify-center md:justify-end space-x-3 mt-4">
